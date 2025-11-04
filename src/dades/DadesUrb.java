@@ -138,5 +138,11 @@ public class DadesUrb {
 		return duplicat;
 	}
 
-	
+	/**
+	 * getter de la superfície_ha
+	 * @return
+	 */
+	public double getSuperficie_ha() {
+		return(superficie_ha);
+	}
 }

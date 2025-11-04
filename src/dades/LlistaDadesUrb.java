@@ -79,6 +79,69 @@ public class LlistaDadesUrb {
         return aux;
     }
 
+        /**
+     *  Afegir les dades d'una nova instància de DadesUrb al final de la llista.
+     * @param novaDada tipus DadesUrb a afegir
+     */
+    public void afegirDades( DadesUrb novaDada) {
+        if (numPoblacions<poblacions.length) {
+            poblacions[numPoblacions] = novaDada.copia(); // s'afegeix nova dada a última posició lliure
+            numPoblacions++;
+        }
+        else { // com la llista està plena s'ha de crear una nova llista amb capacitat+1 /////////////////////////////////////////////////////////////////////////////////////////
+            // TODO: si aquí creem una nova llista no ho podem fer com a void, perquè hauriem de retornar aquesta nova llista
+            //       podriem retornar a malas un codi d'error i que un altre mètode s'encarregui de fer una llista més llarga i després se li tornin a afegir dades.
+            //       o abans d'implementar el mètode afegirDades fem un mètode més general que comprovi la capacitat i desde ahi ja decidim si hi ha espai per afegir 
+            //       més dades o hem de cridar ja als altres métodes
+        }
+    }
+
+    /**
+     * Consultar les dades del municipi que té la superfície total més gran de Catalunya. 
+     * En cas d’empat pots retornar la primera instància trobada. 
+     * El mètode ha de retornar la instància de dades identificada o null si no hi ha cap element a la llista. 
+     * 
+     * @return
+     */
+    public DadesUrb municipiMajorSuperficie() {
+        int posmax = -1; //posició on es troba el element amb el municipi de major superfície
+        double supmax = -1; //no es declara amb els valors del primer element per si no hi ha primer element
+
+        if (numPoblacions ==0 ) { // no hi ha cap element a la llista
+            return(null);
+        } else { 
+            for (int i = 0; i<numPoblacions; i++) {
+                if(poblacions[i].getSuperficie_ha() > supmax) { //si son iguals no s'actualitzarà, però està contemplat a l'enunciat
+                    supmax = poblacions[i].getSuperficie_ha();  // he fet el getter a DadesUrb
+                    posmax = i;
+                }
+            }
+            return(poblacions[posmax]); // retorna instancia (no duplicat) de supmax a partir de la seva posicio guardada
+        }
+    }
+
+    /**
+     * Retornar un duplicat de la instància on el percentatge de superfície del municipi destinat a zones verdes sigui el més alt de tota la llista. 
+     * En cas d’empat es pot retornar qualsevol de les que tinguin el mateix valor. 
+     * @return
+     */
+    public DadesUrb municipiMajorSuperficie() {
+        int posmax = -1; //posició on es troba el element amb el municipi de major superfície
+        double supmax = -1; //no es declara amb els valors del primer element per si no hi ha primer element
+
+        if (numPoblacions ==0 ) { // no hi ha cap element a la llista
+            return(null);
+        } else { 
+            for (int i = 0; i<numPoblacions; i++) {
+                //if(poblacions[i].getXXXXX > supmax) { //si son iguals no s'actualitzarà, però està contemplat a l'enunciat
+                //    supmax = poblacions[i].getXXXXX;  // fer getter i calcular percentatge
+                    posmax = i;
+                }
+            }
+            return(poblacions[posmax].copia()); // retorna DUPLICAT de la instancia ///////////////////////////////////////// ben fet??
+        }
+    }
+
 
 
 

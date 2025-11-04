@@ -169,4 +169,36 @@ public class DadesUrb {
 	public double getSuperfSolUrbanitzable_ha() {
 		return(superfSolUrbanitzable_ha);
 	}
+<<<<<<< HEAD
+=======
+
+	public boolean getEsMunicipiDeCosta (){
+		return (esMunicipiDeCosta);
+	}
+
+	public double getSuperfSolNoUrbanitzable(){
+		return (superfSolNOurbanitzable_ha);
+	}
+
+	public double getSuperfIndustrial(){
+		return (superfIndustrial_ha);
+	}
+		
+	public double getSuperfServeis(){
+		return (superfServeis_ha);
+	}
+
+	public double getSuperfLogistica(){
+		return (superfLogistica_ha);
+	}
+
+	public double getSuperfEquipHabitant(){
+		return (superfEquipHabitant_m2);
+	}
+
+	public int getHabitants(){
+		return (numHabitants);
+	}
+
+>>>>>>> 1890b04 (Dos metodes mes)
 }

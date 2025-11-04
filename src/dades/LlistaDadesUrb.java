@@ -175,10 +175,73 @@ package dades; // serveix per organitzar el codi en carpetes
             return(null);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
         }
         else {
+<<<<<<< HEAD
             increment = (poblacions[i].getSuperfSolUrbanitzable_ha())
+=======
+            increment = poblacions[i].getSuperfSolUrbanitzable_ha();
+>>>>>>> 1890b04 (Dos metodes mes)
         }
 
 
     }
 
+<<<<<<< HEAD
+=======
+    /*Consultar si hi ha algun municipi de costa que no disposi de sòl urbanitzable (columna 05_SURB)
+     en alguna de les anualitats on tenim dades. El mètode ha de retornar la primera 
+     instància trobada o null si no n’hi ha cap.  
+     
+     @return intancia si l'ha trobat, null si no.
+     */
+
+     public DadesUrb costaAmbSolUrbanitzable (){
+        boolean trobat = false;
+        int i =0;
+
+        while ((i<numPoblacions)&&(!trobat)){
+            if (poblacions[i].getEsMunicipiDeCosta()){
+                if (poblacions[i].getSuperfSolUrbanitzable_ha()== 0){/*només si no té sol urbanitzable? */
+                    trobat = true;
+                }
+            }
+            i++;
+        }
+        if (trobat){
+            return (poblacions[i]);
+        }
+        else{
+            return (null); /*com ho declaro? */
+        }
+     }
+
+     /*Quins són els municipis més densos en població? La densitat de població d’un municipi 
+     es calcula com el número d’habitants per km2 agafant el total de superfície del municipi i 
+     el total d’habitants. Fes un mètode que retorni una taula de String amb els noms dels
+      municipis (sense repetits) que tenen una densitat de població superior a un valor 
+      indicat per paràmetre.  
+      
+      @parametre densitat
+      @return nomPob 
+      */
+
+      public String [] densitatPoblacions (double densitat){
+        String[] nomPob = new String[numPoblacions];/*he ficat numPoblacion perquè és el màxim de poblacion que hi haurà */
+        double supTotal;
+        double dens;
+        int j = 0;
+        nomPob[0] = "res";
+
+        
+        for (int i = 0; i<numPoblacions; i++){
+            supTotal = poblacions[i].getSuperfEquipHabitant() +poblacions[i].getSuperfIndustrial() + poblacions[i].getSuperfLogistica() + poblacions[i].getSuperfServeis() + poblacions[i].getSuperfSolNoUrbanitzable() + poblacions[i].getSuperfSolUrbanitzable_ha() + poblacions[i].getSuperfZonesVerdes_ha() + poblacions[i].getSuperficie_ha();
+             /*no se si haig d'agafar totes */
+            dens = (poblacions[i].getHabitants()/supTotal);
+            if (dens > densitat){
+                nomPob[j] = poblacions[i].getNomMunicipi();
+                j++;
+            }
+        }
+        return (nomPob);
+      }
+>>>>>>> 1890b04 (Dos metodes mes)
 }

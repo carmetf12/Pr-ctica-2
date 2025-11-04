@@ -15,7 +15,7 @@ package dades; // serveix per organitzar el codi en carpetes
  *      - dades.split(;) (crec que era aixi), agafarà fins al primer ;
  */
 
-public class LlistaDadesUrb {
+    public class LlistaDadesUrb {
     //MÈTODES A FER (constructor, get del número d’elements de la llista, consultar les dades d’una certa posició, copia, toString)
 
     //atributs
@@ -58,7 +58,7 @@ public class LlistaDadesUrb {
      * @return
      */
     public LlistaDadesUrb copia() {
-        LlistaDadesUrb duplicat = new LlistaDadesUrb();
+        LlistaDadesUrb duplicat = new LlistaDadesUrb(); ///// s'han de passar tots els param al constructor??
         duplicat.poblacions = this.poblacions; /////////////////// està bé?
         duplicat.numPoblacions = this.numPoblacions;
         return duplicat;
@@ -125,24 +125,60 @@ public class LlistaDadesUrb {
      * En cas d’empat es pot retornar qualsevol de les que tinguin el mateix valor. 
      * @return
      */
-    public DadesUrb municipiMajorSuperficie() {
+    public DadesUrb municipiMajorPercentZonesVerdes() {
         int posmax = -1; //posició on es troba el element amb el municipi de major superfície
         double supmax = -1; //no es declara amb els valors del primer element per si no hi ha primer element
+        double percentZonaVerda = -1;
 
         if (numPoblacions ==0 ) { // no hi ha cap element a la llista
             return(null);
         } else { 
             for (int i = 0; i<numPoblacions; i++) {
-                //if(poblacions[i].getXXXXX > supmax) { //si son iguals no s'actualitzarà, però està contemplat a l'enunciat
-                //    supmax = poblacions[i].getXXXXX;  // fer getter i calcular percentatge
+                percentZonaVerda = (poblacions[i].getSuperfZonesVerdes_ha()/poblacions[i].getSuperficie_ha()*100); //variable auxiliar que calcula el percentatge de superficie destinada a zones verdes x cada municipi
+                if(percentZonaVerda > supmax) { //si son iguals no s'actualitzarà, però està contemplat a l'enunciat
+                    supmax = percentZonaVerda;
                     posmax = i;
                 }
             }
-            return(poblacions[posmax].copia()); // retorna DUPLICAT de la instancia ///////////////////////////////////////// ben fet??
+            return(poblacions[posmax].copia()); // retorna DUPLICAT de la instancia TODO: ben fet??
         }
     }
 
+    /**
+     * Consultar si un municipi ha modificat la superfície del sòl urbanitzable al llarg dels anys. 
+     * El mètode rep el nom del municipi per paràmetre i retorna l’increment (o decrement) de sòl urbanitzable entre les dades del primer any i les de l’últim. 
+     * Les dades a la llista estan ordenades per any. 
+
+     * @param nom string amb el nom del municipi
+     * @return
+     */
+    public double modSuperficie(String nom) {
+        int posIni = -1;
+        int posFi = -1;
+        int increment;
+        
+        //buscar les posicions del primer i últim any del mateix municipi
+        for(int i = 0; i<numPoblacions; i++) {
+            if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
+                if(posIni == -1) { //encara no s'havia trobat cap coincidencia de nom abans
+                    posIni = i;    // es guarda la posició del primer any guardat el municipi
+                    posFi = i;     // s'inicialitza per a comparar amb els propers anys i per si no hi ha cap altre objecte d'aquest municipi
+                }
+                else {
+                    if (i>posFi) {
+                        posFi = i;
+                    }
+                }
+            }
+        }
+        if (posIni == -1) {
+            return(null);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
+        }
+        else {
+            increment = (poblacions[i].getSuperfSolUrbanitzable_ha())
+        }
 
 
+    }
 
 }

@@ -145,4 +145,28 @@ public class DadesUrb {
 	public double getSuperficie_ha() {
 		return(superficie_ha);
 	}
+
+	/**
+	 * getter de la superfície de zones verdes
+	 * @return
+	 */
+	public double getSuperfZonesVerdes_ha() {
+		return(superfZonesVerdes_ha);
+	}
+
+	/**
+	 * getter del nom del municipi
+	 * @return
+	 */
+	public String getNomMunicipi() {
+		return(nomMunicipi);
+	}
+
+	/**
+	 * getter del nom del municipi
+	 * @return
+	 */
+	public double getSuperfSolUrbanitzable_ha() {
+		return(superfSolUrbanitzable_ha);
+	}
 }

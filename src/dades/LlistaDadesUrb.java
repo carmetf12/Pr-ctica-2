@@ -255,25 +255,69 @@ package dades; // serveix per organitzar el codi en carpetes
     /**
      * Consultar les dades d’un municipi. El nom del municipi es rep per paràmetre. 
      * Es retorna les dades que compleixen la condició en una nova LlistaDadesUrb. 
-     * @param
-     * @return
+     * @param nom del municipi a buscar
+     * @return LlistaDadesUrb amb municipis del nom de param
      */
     public LlistaDadesUrb dadesMunicipi (String nom) {
-        int final capacitat = 16;
-        int pos = -1;
+        int final capacitat = 16; //pq es el 
+        int j = 0;
 
-        LlistaDadesUrb subllista = new LlistaDadesUrb(capacitat); //nova llista
+        LlistaDadesUrb subllista = new LlistaDadesUrb(numPoblacions); //nova llista
         // trobar posicio del municipi a la taula
         for(int i = 0; i<numPoblacions; i++) {
             if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
-                pos = i;
+                subllista[j] = poblacions[i].copia();
+                j++;
             }
         }
-        if (pos != -1) { //s'ha trobat el municipi
-            //no entenc com s'ha de fer, foto laia
-        }
-
         return(subllista);
+    }
+
+    /**
+     * Consutar i retornar una llistaDadesUrb que conté els municipis que siguin de costa o els que siguin de muntanya o els que no siguin cap d'aquests dos tipus
+     * Per a escollir quin dels 3 tipus de dades volen, al menú es dira que segons el numero que passin estaran seleccionant una opcio o un altra
+     * on costa = 0, muntanya = 1, ni costa ni muntanya = 2
+     * @param op opció seleccionada per a retornar
+     * @return 
+     */
+    public LlistaDadesUrb dadesMunicipiCaract(int op) {
+
+        int j = 0;
+        LlistaDadesUrb subllista = new LlistaDadesUrb(numPoblacions); //nova llista
+
+        if (op == 0) { //seleccio costa
+            for (int i = 0; i<numPoblacions; i++){
+                if(poblacions[i].getEsMunicipiDeCosta()){
+                    subllista[j] = poblacions[i].copia();
+                    j++;
+                }
+            }
+        }
+        else {
+            if (op == 1){ //seleccio muntanya
+                for (int i = 0; i<numPoblacions; i++){
+                if(poblacions[i].getEsMunicipiDeMuntanya()){
+                    subllista[j] = poblacions[i].copia();
+                    j++;
+                }
+            }
+            }
+            else {
+                if (op == 2){ //seleccio ni costa ni muntanya
+                    for (int i = 0; i<numPoblacions; i++){                                                    //nomes entra si cap dels dos ho es
+                        if(!(poblacions[i].getEsMunicipiDeCosta()||poblacions[i].getEsMunicipiDeMuntanya())){ //si algun es de costa o de muntanya no entra,
+                            subllista[j] = poblacions[i].copia();
+                            j++;
+                        }
+                    }
+                }
+            }
+                }
+                else { //han introduit una opcio invalida
+                    //TODO: acabar
+                }
+            }
+        }    
 
     }
 }

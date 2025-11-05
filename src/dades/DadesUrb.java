@@ -139,6 +139,35 @@ public class DadesUrb {
 	}
 
 	/**
+	 * private int anyDades;
+	private String comarca;
+	private String provincia;
+	private boolean esMunicipiDeMuntanya;
+	private int numHabitants;
+	private double superfSolUrba_ha;
+	 */
+
+	public int getAnyDades(){
+		return(anyDades);
+	}
+
+	public String getComarca(){
+		return(comarca);
+	}
+
+	public String getProvincia(){
+		return(provincia);
+	}
+
+	public boolean getEsMunicipiDeMuntanya(){
+		return(comarca);
+	}
+
+	public double getSuperfSolUrba_ha(){
+		return(superfSolUrba_ha);
+	}
+	
+	/**
 	 * getter de la superfície_ha
 	 * @return
 	 */

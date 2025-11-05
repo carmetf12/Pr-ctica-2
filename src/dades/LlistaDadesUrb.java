@@ -198,7 +198,7 @@ package dades; // serveix per organitzar el codi en carpetes
      @return intancia si l'ha trobat, null si no.
      */
 
-    public DadesUrb costaAmbSolUrbanitzable (){
+    public DadesUrb costaSenseSolUrbanitzable (){
         boolean trobat = false;
         int i =0;
 
@@ -345,7 +345,9 @@ package dades; // serveix per organitzar el codi en carpetes
                 if(nom.equalsIgnoreCase(poblacions[i+1].getNomMunicipi())){ //es comprova posicio seguent
                     //si la posició següent també es del municipi
                     i--; //es decrementa i, per a que a la propera iteració quan incrementi i avalui la casella que ha estat col·locada on estava la eliminada
-                }
+                } // VAYA FACTO
+
+
             }
         }
     }

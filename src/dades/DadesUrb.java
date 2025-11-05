@@ -160,7 +160,7 @@ public class DadesUrb {
 	}
 
 	public boolean getEsMunicipiDeMuntanya(){
-		return(comarca);
+		return(esMunicipiDeCosta);
 	}
 
 	public double getSuperfSolUrba_ha(){

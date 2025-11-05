@@ -58,7 +58,7 @@ package dades; // serveix per organitzar el codi en carpetes
      * @return
      */
     public LlistaDadesUrb copia() {
-        LlistaDadesUrb duplicat = new LlistaDadesUrb(); ///// s'han de passar tots els param al constructor??
+        LlistaDadesUrb duplicat = new LlistaDadesUrb(numPoblacions); ///// s'han de passar tots els param al constructor??
         duplicat.poblacions = this.poblacions; /////////////////// està bé?
         duplicat.numPoblacions = this.numPoblacions;
         return duplicat;
@@ -69,11 +69,11 @@ package dades; // serveix per organitzar el codi en carpetes
      * @return cadena amb el contingut de la instància
      */
     public String toSting() {
-        String aux = "\n\nLlistaDadesUrb:\n";
+        String aux = "\n\nLlistaDadesUrb amb " +numPoblacions+ " poblacions:\n";
 
         if (numPoblacions > 0) {
             for (int i = 0; i < numPoblacions; i++) {
-                aux = aux + "\n\t" + poblacions[i];  ////////////// està bé? cridarà al toString de DadesUrb?
+                aux = aux + "\n\t" + poblacions[i].toString();  ////////////// està bé? cridarà al toString de DadesUrb?
             }
         }
         return aux;
@@ -84,6 +84,7 @@ package dades; // serveix per organitzar el codi en carpetes
      * @param novaDada tipus DadesUrb a afegir
      */
     public void afegirDades( DadesUrb novaDada) {
+        int diferencia;
         if (numPoblacions<poblacions.length) {
             poblacions[numPoblacions] = novaDada.copia(); // s'afegeix nova dada a última posició lliure
             numPoblacions++;
@@ -93,6 +94,13 @@ package dades; // serveix per organitzar el codi en carpetes
             //       podriem retornar a malas un codi d'error i que un altre mètode s'encarregui de fer una llista més llarga i després se li tornin a afegir dades.
             //       o abans d'implementar el mètode afegirDades fem un mètode més general que comprovi la capacitat i desde ahi ja decidim si hi ha espai per afegir 
             //       més dades o hem de cridar ja als altres métodes
+            diferencia = numPoblacions - poblacions.length;
+            LlistaDadesUrb nova = new LlistaDadesUrb(numPoblacions + diferencia);
+            for (int i = 0; i< numPoblacions; i++){
+                poblacions[i] = this.poblacions[i].copia();
+            }
+            poblacions[numPoblacions] = novaDada.copia(); // s'afegeix nova dada a última posició lliure
+            numPoblacions++;
         }
     }
 
@@ -104,7 +112,7 @@ package dades; // serveix per organitzar el codi en carpetes
      * @return
      */
     public DadesUrb municipiMajorSuperficie() {
-        int posmax = -1; //posició on es troba el element amb el municipi de major superfície
+        int posmax = -1; //posició on es troba l'element amb el municipi de major superfície
         double supmax = -1; //no es declara amb els valors del primer element per si no hi ha primer element
 
         if (numPoblacions ==0 ) { // no hi ha cap element a la llista
@@ -155,7 +163,7 @@ package dades; // serveix per organitzar el codi en carpetes
     public double modSuperficie(String nom) {
         int posIni = -1;
         int posFi = -1;
-        int increment;
+        double increment;
         
         //buscar les posicions del primer i últim any del mateix municipi
         for(int i = 0; i<numPoblacions; i++) {
@@ -172,10 +180,11 @@ package dades; // serveix per organitzar el codi en carpetes
             }
         }
         if (posIni == -1) {
-            return(null);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
+            return(-1);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
         }                       // s'ha de suposar que sempre el trobarem?
+                                //TODO Et serveix com a codi d'error? null no es pot retornar pq és un double
         else {
-            increment = (poblacions[posIFi].getSuperfSolUrbanitzable_ha() - poblacions[posIni].getSuperfSolUrbanitzable_ha()); // calcula l'increment
+            increment = (poblacions[posFi].getSuperfSolUrbanitzable_ha() - poblacions[posIni].getSuperfSolUrbanitzable_ha()); // calcula l'increment
             return (increment);
         }
 
@@ -230,18 +239,18 @@ package dades; // serveix per organitzar el codi en carpetes
         
         for (int i = 0; i<numPoblacions; i++){
             //supTotal = poblacions[i].getSuperfEquipHabitant() +poblacions[i].getSuperfIndustrial() + poblacions[i].getSuperfLogistica() + poblacions[i].getSuperfServeis() + poblacions[i].getSuperfSolNoUrbanitzable() + poblacions[i].getSuperfSolUrbanitzable_ha() + poblacions[i].getSuperfZonesVerdes_ha() + poblacions[i].getSuperficie_ha();
-            supTotal = poblacions[i].getSuperficie_ha;
+            supTotal = poblacions[i].getSuperficie_ha();
             /*no se si haig d'agafar totes, JO et diria que superficie_ha es el total (ja es la suma de totes), perque de fet, al mètode de percentatge de zones verdes s'enten que aquell es una part d'aquest total. suposo que tmb es podria comprovar pero bueno */
             dens = (poblacions[i].getHabitants()/supTotal);
             if (dens > densitat){
             //comprovar que aquell municipi no s'ha afegit abans (cerca) TODO: revisar
                 j = 0;
                 //detectar si s'ha afegit abans
-                while (noAfegit)&&(j<nPobl) {
+                while ((noAfegit)&&(j<nPobl)) {
                     if(nomPob[j] == poblacions[i].getNomMunicipi()) {
                         noAfegit = false;
                     }
-                    j++
+                    j++;
                 }
                 //si no s'ha afegit abans (despres del bucle noAfegit continua sent cert)
                 if(noAfegit) {
@@ -259,14 +268,15 @@ package dades; // serveix per organitzar el codi en carpetes
      * @return LlistaDadesUrb amb municipis del nom de param
      */
     public LlistaDadesUrb dadesMunicipi (String nom) {
-        int final capacitat = 16; //pq es el 
+        final int capacitat = 16; //pq es el 
         int j = 0;
 
         LlistaDadesUrb subllista = new LlistaDadesUrb(numPoblacions); //nova llista
         // trobar posicio del municipi a la taula
         for(int i = 0; i<numPoblacions; i++) {
             if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
-                subllista[j] = poblacions[i].copia();
+                subllista.afegirDades(poblacions[i]);
+  
                 j++;
             }
         }
@@ -288,7 +298,7 @@ package dades; // serveix per organitzar el codi en carpetes
         if (op == 0) { //seleccio costa
             for (int i = 0; i<numPoblacions; i++){
                 if(poblacions[i].getEsMunicipiDeCosta()){
-                    subllista[j] = poblacions[i].copia();
+                    subllista.afegirDades(poblacions[i]);
                     j++;
                 }
             }
@@ -296,28 +306,47 @@ package dades; // serveix per organitzar el codi en carpetes
         else {
             if (op == 1){ //seleccio muntanya
                 for (int i = 0; i<numPoblacions; i++){
-                if(poblacions[i].getEsMunicipiDeMuntanya()){
-                    subllista[j] = poblacions[i].copia();
-                    j++;
+                    if(poblacions[i].getEsMunicipiDeMuntanya()){
+                        subllista.afegirDades(poblacions[i]);
+                        j++;
+                    }
                 }
-            }
             }
             else {
                 if (op == 2){ //seleccio ni costa ni muntanya
                     for (int i = 0; i<numPoblacions; i++){                                                    //nomes entra si cap dels dos ho es
                         if(!(poblacions[i].getEsMunicipiDeCosta()||poblacions[i].getEsMunicipiDeMuntanya())){ //si algun es de costa o de muntanya no entra,
-                            subllista[j] = poblacions[i].copia();
+                            subllista.afegirDades(poblacions[i]);
                             j++;
                         }
                     }
                 }
-            }
-                }
                 else { //han introduit una opcio invalida
-                    //TODO: acabar
+                    return (null);//TODO: acabar TE SIRVE?
                 }
             }
-        }    
+        }
 
+        return(subllista);    
+    }
+
+    /**
+     * Eliminar el conjunt de dades que són d’un municipi (recorda que no poden quedar posicions buides a la taula que conté la llista). 
+     * El mètode rep per paràmetre el nom del municipi.
+     * @param nom nom del Municipi a eliminar
+     */
+    public void eliminarMunicipi (String nom) {
+        for(int i = 0; i<numPoblacions; i++) {
+            if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){ //es comprova posicio
+                for(int j = i; j<numPoblacions; j++) {
+                        poblacions[j] = poblacions[j+1];
+                        numPoblacions--;
+                }
+                if(nom.equalsIgnoreCase(poblacions[i+1].getNomMunicipi())){ //es comprova posicio seguent
+                    //si la posició següent també es del municipi
+                    i--; //es decrementa i, per a que a la propera iteració quan incrementi i avalui la casella que ha estat col·locada on estava la eliminada
+                }
+            }
+        }
     }
 }

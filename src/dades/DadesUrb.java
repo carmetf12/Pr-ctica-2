@@ -169,8 +169,6 @@ public class DadesUrb {
 	public double getSuperfSolUrbanitzable_ha() {
 		return(superfSolUrbanitzable_ha);
 	}
-<<<<<<< HEAD
-=======
 
 	public boolean getEsMunicipiDeCosta (){
 		return (esMunicipiDeCosta);
@@ -200,5 +198,4 @@ public class DadesUrb {
 		return (numHabitants);
 	}
 
->>>>>>> 1890b04 (Dos metodes mes)
 }

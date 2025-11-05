@@ -150,7 +150,7 @@ package dades; // serveix per organitzar el codi en carpetes
      * Les dades a la llista estan ordenades per any. 
 
      * @param nom string amb el nom del municipi
-     * @return
+     * @return increment sop sol urb, null si no esta el municipi
      */
     public double modSuperficie(String nom) {
         int posIni = -1;
@@ -173,28 +173,23 @@ package dades; // serveix per organitzar el codi en carpetes
         }
         if (posIni == -1) {
             return(null);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
-        }
+        }                       // s'ha de suposar que sempre el trobarem?
         else {
-<<<<<<< HEAD
-            increment = (poblacions[i].getSuperfSolUrbanitzable_ha())
-=======
-            increment = poblacions[i].getSuperfSolUrbanitzable_ha();
->>>>>>> 1890b04 (Dos metodes mes)
+            increment = (poblacions[posIFi].getSuperfSolUrbanitzable_ha() - poblacions[posIni].getSuperfSolUrbanitzable_ha()); // calcula l'increment
+            return (increment);
         }
 
 
     }
 
-<<<<<<< HEAD
-=======
-    /*Consultar si hi ha algun municipi de costa que no disposi de sòl urbanitzable (columna 05_SURB)
+    /**Consultar si hi ha algun municipi de costa que no disposi de sòl urbanitzable (columna 05_SURB)
      en alguna de les anualitats on tenim dades. El mètode ha de retornar la primera 
      instància trobada o null si no n’hi ha cap.  
      
      @return intancia si l'ha trobat, null si no.
      */
 
-     public DadesUrb costaAmbSolUrbanitzable (){
+    public DadesUrb costaAmbSolUrbanitzable (){
         boolean trobat = false;
         int i =0;
 
@@ -207,14 +202,14 @@ package dades; // serveix per organitzar el codi en carpetes
             i++;
         }
         if (trobat){
-            return (poblacions[i]);
+            return (poblacions[i-1]); //he canviat a i-1 perquè encara que el trobis li apliques l'increment, aleshores tornaries el trobat +1
         }
         else{
-            return (null); /*com ho declaro? */
+            return (null); /*com ho declaro? crec que així està bé pq es de tipus objecte*/
         }
      }
 
-     /*Quins són els municipis més densos en població? La densitat de població d’un municipi 
+     /**Quins són els municipis més densos en població? La densitat de població d’un municipi 
      es calcula com el número d’habitants per km2 agafant el total de superfície del municipi i 
      el total d’habitants. Fes un mètode que retorni una taula de String amb els noms dels
       municipis (sense repetits) que tenen una densitat de població superior a un valor 
@@ -228,20 +223,57 @@ package dades; // serveix per organitzar el codi en carpetes
         String[] nomPob = new String[numPoblacions];/*he ficat numPoblacion perquè és el màxim de poblacion que hi haurà */
         double supTotal;
         double dens;
-        int j = 0;
+        int j = 0; //var per incrementar al recorregut per la taula de poblacions amb densitat superior
+        int nPobl = 0; //var per controlar el num de poblacions de densitat superior afegides
         nomPob[0] = "res";
-
+        boolean noAfegit = true;
         
         for (int i = 0; i<numPoblacions; i++){
-            supTotal = poblacions[i].getSuperfEquipHabitant() +poblacions[i].getSuperfIndustrial() + poblacions[i].getSuperfLogistica() + poblacions[i].getSuperfServeis() + poblacions[i].getSuperfSolNoUrbanitzable() + poblacions[i].getSuperfSolUrbanitzable_ha() + poblacions[i].getSuperfZonesVerdes_ha() + poblacions[i].getSuperficie_ha();
-             /*no se si haig d'agafar totes */
+            //supTotal = poblacions[i].getSuperfEquipHabitant() +poblacions[i].getSuperfIndustrial() + poblacions[i].getSuperfLogistica() + poblacions[i].getSuperfServeis() + poblacions[i].getSuperfSolNoUrbanitzable() + poblacions[i].getSuperfSolUrbanitzable_ha() + poblacions[i].getSuperfZonesVerdes_ha() + poblacions[i].getSuperficie_ha();
+            supTotal = poblacions[i].getSuperficie_ha;
+            /*no se si haig d'agafar totes, JO et diria que superficie_ha es el total (ja es la suma de totes), perque de fet, al mètode de percentatge de zones verdes s'enten que aquell es una part d'aquest total. suposo que tmb es podria comprovar pero bueno */
             dens = (poblacions[i].getHabitants()/supTotal);
             if (dens > densitat){
-                nomPob[j] = poblacions[i].getNomMunicipi();
-                j++;
+            //comprovar que aquell municipi no s'ha afegit abans (cerca) TODO: revisar
+                j = 0;
+                //detectar si s'ha afegit abans
+                while (noAfegit)&&(j<nPobl) {
+                    if(nomPob[j] == poblacions[i].getNomMunicipi()) {
+                        noAfegit = false;
+                    }
+                    j++
+                }
+                //si no s'ha afegit abans (despres del bucle noAfegit continua sent cert)
+                if(noAfegit) {
+                    nomPob[nPobl] = poblacions[i].getNomMunicipi();
+                    nPobl++;
+                }
             }
         }
         return (nomPob);
-      }
->>>>>>> 1890b04 (Dos metodes mes)
+    }
+    /**
+     * Consultar les dades d’un municipi. El nom del municipi es rep per paràmetre. 
+     * Es retorna les dades que compleixen la condició en una nova LlistaDadesUrb. 
+     * @param
+     * @return
+     */
+    public LlistaDadesUrb dadesMunicipi (String nom) {
+        int final capacitat = 16;
+        int pos = -1;
+
+        LlistaDadesUrb subllista = new LlistaDadesUrb(capacitat); //nova llista
+        // trobar posicio del municipi a la taula
+        for(int i = 0; i<numPoblacions; i++) {
+            if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
+                pos = i;
+            }
+        }
+        if (pos != -1) { //s'ha trobat el municipi
+            //no entenc com s'ha de fer, foto laia
+        }
+
+        return(subllista);
+
+    }
 }

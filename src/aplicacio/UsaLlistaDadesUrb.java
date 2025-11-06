@@ -14,6 +14,9 @@ public class UsaLlistaDadesUrb {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		int numLinies, liniaIni, liniaFi;
+		int opcio;
+		
+	
 
 		System.out.println("Indica les línies a llegir del fitxer");
 		System.out.println("Quina és la primera línia a llegir del fitxer (valor >=1)");
@@ -27,20 +30,74 @@ public class UsaLlistaDadesUrb {
 		else{
 			numLinies = (liniaFi - liniaIni)*(-1) + 1;
 		}
+
+		LlistaDadesUrb muniCat = new LlistaDadesUrb(numLinies);
 		
 		String[] dataset = llegirLiniesFitxer(liniaIni, liniaFi);
+		String[][] dadesUnaUrb = new String[dataset.length][];
 
 		// mostrem el contingut que hem llegit. Això ho eliminarem en les
 		// versions finals del codi
+
 		for (int i = 0; i < dataset.length; i++) {
 			System.out.println("Linia " + (i + 1) + " conté " + dataset[i]);
 		}
 
 		// Completar el codi a partir d'aquí
+		for (int i = 0; i < dataset.length; i++){
 
+				dadesUnaUrb[i] = dataset[i].split(";");//si costa = 1; ; si muntanya = 0; Zona de muntanys; si no costa no muntanya = 0; ;
+				DadesUrb dades = new DadesUrb(Integer.parseInt(dadesUnaUrb[i][0]), dadesUnaUrb[i][1], dadesUnaUrb[i][2], (dadesUnaUrb[i][3].equalsIgnoreCase("1")), (dadesUnaUrb[i][4].equalsIgnoreCase("Zona de muntanya") ), Integer.parseInt(dadesUnaUrb[i][5]), Double.parseDouble(dadesUnaUrb[i][6]), Double.parseDouble(dadesUnaUrb[i][7]), Double.parseDouble(dadesUnaUrb[i][8]), Double.parseDouble(dadesUnaUrb[i][9]), Double.parseDouble(dadesUnaUrb[i][10]), Double.parseDouble(dadesUnaUrb[i][11]), Double.parseDouble(dadesUnaUrb[i][12]), Double.parseDouble(dadesUnaUrb[i][13]), Double.parseDouble(dadesUnaUrb[i][14]));
+				muniCat.afegirDades(dades);
+			}
+		
+		
 		
 
-	}
+		
+		//MOSTRAR EL MENU
+		mostraMenu();
+		opcio = Integer.parseInt(teclat.nextLine());
+		while (opcio != 7) {
+			switch (opcio) {
+			case 1:
+				opcio1(muniCat);
+				break;
+			case 2:
+				opcio2(muniCat);
+				break;
+			case 3:
+				opcio3(muniCat);
+				break;
+			case 4:
+				opcio4(muniCat);
+				break;
+			case 5:
+				opcio5(muniCat);
+				break;
+			case 6:
+				opcio6(muniCat);
+				break;
+			case 7:
+				opcio7(muniCat);
+				break;
+			case 8:
+				opcio8(muniCat);
+				break;
+			case 9:
+				opcio9(muniCat);
+				break;
+			case 10:
+				opcio10(muniCat);
+				break;
+			case 11:
+				opcio11(muniCat);
+				break;
+			}
+		
+
+		}
+	}	
 
 	private static String[] llegirLiniesFitxer(int liniaIni, int liniaFi) throws FileNotFoundException {
 		String[] result;
@@ -88,7 +145,7 @@ public class UsaLlistaDadesUrb {
 //Mostrar l’evolució de la població anual d’un municipi en els diferents anys on tenim dades. El nom del municipi es llegirà de teclat. 
 //Sortir del programa. 
 
-	private static void mostrarMenu(){
+	private static void mostraMenu(){
 		System.out.println("\n\nOpcions del menu:");
 		System.out.println("\n\t1. Mostrar el conjunt de dades de la llista.");
 		System.out.println("\t2. Eliminar el conjunt de dades d’un municipi.");
@@ -111,8 +168,11 @@ public class UsaLlistaDadesUrb {
 		System.out.println(municipis);
 	}
 
-	public static void opcio2(LlistaDadesUrb municipis ,string nom) {
+	public static void opcio2(LlistaDadesUrb municipis) {
 //Eliminar el conjunt de dades d’un municipI.
+		String nom;
+		System.out.println("\n\n\t Indica el nom de la població:");
+		nom = teclat.nextLine();
 		System.out.print("\n\n\tEls valors del municipi son:\t");
 		System.out.println(municipis.getDadesUrb(nom));//TODO Hem de canviar el metode que ho faci pel nom
 
@@ -132,8 +192,11 @@ public class UsaLlistaDadesUrb {
 		System.out.println(municipis.municipiMajorPercentZonesVerdes());
 	}
 
-		public static void opcio5(LlistaDadesUrb municipis, string nom) {
+		public static void opcio5(LlistaDadesUrb municipis) {
 //Mostrar l’increment o decrement de la superfície de sòl urbanitzable al llarg dels anys d’un municipi.
+		String nom;
+		System.out.println("\n\n\t Indica el nom de la població:");
+		nom = teclat.nextLine();
 		System.out.print("\n\n\tL'increment o decrement de superfície de sòl urbanitzable de"+nom+"és:\t");
 		System.out.println(municipis.modSuperficie(nom));
 	}
@@ -144,14 +207,20 @@ public class UsaLlistaDadesUrb {
 		System.out.println(municipis.costaSenseSolUrbanitzable());
 	}
 
-	public static void opcio7(LlistaDadesUrb municipis, double dpoblacio) {
+	public static void opcio7(LlistaDadesUrb municipis) {
 //Mostrar el nom dels municipis que tenen una densitat de població superior a un valor.
+		double dpoblacio;
+		System.out.println("\n\n\t Indica la densitat de la població a comparar:");
+		dpoblacio = Double.parseDouble(teclat.nextLine());
 		System.out.print("\n\n\tEls noms dels municipis amb densitat de població superior a"+dpoblacio+ "són:\t");
 		System.out.println(municipis.densitatPoblacions(dpoblacio));
 	}
 
-	public static void opcio8(LlistaDadesUrb municipis, double dpoblacio) {
-//Mostrar el nom dels municipis de muntanya que tenen una densitat de població superior a un valor. 
+	public static void opcio8(LlistaDadesUrb municipis) {
+//Mostrar el nom dels municipis de muntanya que tenen una densitat de població superior a un valor.
+		double dpoblacio;
+		System.out.println("\n\n\t Indica la densitat de la població de muntanya a comparar:");
+		dpoblacio = Double.parseDouble(teclat.nextLine());	
 		LlistaDadesUrb muntanya = new LlistaDadesUrb(1000000000);
 		muntanya = municipis.dadesMunicipiCaract(1);
 		System.out.print("\n\n\tEls noms dels municipis de muntanya amb densitat de població superior a"+dpoblacio+ "són:\t");
@@ -175,13 +244,16 @@ public class UsaLlistaDadesUrb {
 		System.out.println(normal.municipiMajorSuperficie());
 	}
 
-	public static void opcio11(LlistaDadesUrb municipis, string nom) {
+	public static void opcio11(LlistaDadesUrb municipis) {
 //Mostrar l’evolució de la població anual d’un municipi en els diferents anys on tenim dades. 
+		String nom;
+		System.out.println("\n\n\t Indica el nom de la població:");
+		nom = teclat.nextLine();
 		LlistaDadesUrb municipiNom = new LlistaDadesUrb(1000000000);
 		municipiNom = municipis.dadesMunicipi(nom);
 		System.out.println("\n\n\t La població del municipi "+nom+ " durant els anys ha estat:");
-		for (int i = 0; i < municipiNom.length; i++){//TODO mirar com col·locar bé el length estic molt cansada i ja no em funcionen les neurones
-			System.out.println("\n"+municipiNom.getDadesUrb(i).getAnyDades()+":\t "+municipiNom.getDadesUrb(i).getHabitants());
+		for (int i = 0; i < municipiNom.numElemLlista(); i++){//TODO mirar com col·locar bé el length estic molt cansada i ja no em funcionen les neurones
+			System.out.println("\n"+municipiNom.getDadesUrb(nom).getAnyDades()+":\t "+municipiNom.getDadesUrb(nom).getHabitants());
 
 		}
 

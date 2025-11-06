@@ -45,12 +45,23 @@ package dades; // serveix per organitzar el codi en carpetes
      * @pos numero de la posició la qual es vol consultar les dades
      * @return
      */
-    public DadesUrb getDadesUrb(int pos) {
-        if ((pos-1)>0 && pos < numPoblacions) {  //POS-1 pq ens introdueixen el valor a get suposant que el seu 1 es el nostre 0
-            return(poblacions[pos-1]);             ///////////////// retornar com a còpia?
-        } else {
+    public DadesUrb getDadesUrb(String nomMun) {
+        int i = 0;
+        boolean trobat = false; 
+        while ((i<numPoblacions)&&(!trobat)){
+            if(nomMun.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
+                trobat = true;
+            }
+            i++;
+        } 
+        if (trobat){
+            return(poblacions[i-1]); 
+        }
+        else{
             return(null);
         }
+          ///////////////// retornar com a còpia?
+        
     }
 
     /**

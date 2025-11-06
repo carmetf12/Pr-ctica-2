@@ -16,8 +16,6 @@ public class UsaLlistaDadesUrb {
 		int numLinies, liniaIni, liniaFi;
 		int opcio;
 		
-	
-
 		System.out.println("Indica les línies a llegir del fitxer");
 		System.out.println("Quina és la primera línia a llegir del fitxer (valor >=1)");
 		liniaIni = Integer.parseInt(teclat.nextLine());
@@ -34,20 +32,20 @@ public class UsaLlistaDadesUrb {
 		LlistaDadesUrb muniCat = new LlistaDadesUrb(numLinies);
 		
 		String[] dataset = llegirLiniesFitxer(liniaIni, liniaFi);
-		String[][] dadesUnaUrb = new String[dataset.length][];
+		String[][] dadesUnaUrb = new String[numLinies][];
 
 		// mostrem el contingut que hem llegit. Això ho eliminarem en les
 		// versions finals del codi
 
-		for (int i = 0; i < dataset.length; i++) {
-			System.out.println("Linia " + (i + 1) + " conté " + dataset[i]);
-		}
+		//for (int i = 0; i < dataset.length; i++) {
+			//System.out.println("Linia " + (i + 1) + " conté " + dataset[i]);
+		//}
 
 		// Completar el codi a partir d'aquí
-		for (int i = 0; i < dataset.length; i++){
+		for (int i = 0; i < numLinies; i++){
 
 				dadesUnaUrb[i] = dataset[i].split(";");//si costa = 1; ; si muntanya = 0; Zona de muntanys; si no costa no muntanya = 0; ;
-				DadesUrb dades = new DadesUrb(Integer.parseInt(dadesUnaUrb[i][0]), dadesUnaUrb[i][1], dadesUnaUrb[i][2], (dadesUnaUrb[i][3].equalsIgnoreCase("1")), (dadesUnaUrb[i][4].equalsIgnoreCase("Zona de muntanya") ), Integer.parseInt(dadesUnaUrb[i][5]), Double.parseDouble(dadesUnaUrb[i][6]), Double.parseDouble(dadesUnaUrb[i][7]), Double.parseDouble(dadesUnaUrb[i][8]), Double.parseDouble(dadesUnaUrb[i][9]), Double.parseDouble(dadesUnaUrb[i][10]), Double.parseDouble(dadesUnaUrb[i][11]), Double.parseDouble(dadesUnaUrb[i][12]), Double.parseDouble(dadesUnaUrb[i][13]), Double.parseDouble(dadesUnaUrb[i][14]));
+				DadesUrb dades = new DadesUrb(Integer.parseInt(dadesUnaUrb[i][0]), dadesUnaUrb[i][1], dadesUnaUrb[i][2], (dadesUnaUrb[i][3].equalsIgnoreCase("1")), (dadesUnaUrb[i][4].equalsIgnoreCase("Zona de muntanya") ), Integer.parseInt(dadesUnaUrb[i][5].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][6].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][7].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][8].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][9].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][10].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][11].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][12].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][13].replace(",", ".")), Double.parseDouble(dadesUnaUrb[i][14].replace(",", ".")));
 				muniCat.afegirDades(dades);
 			}
 		
@@ -58,7 +56,7 @@ public class UsaLlistaDadesUrb {
 		//MOSTRAR EL MENU
 		mostraMenu();
 		opcio = Integer.parseInt(teclat.nextLine());
-		while (opcio != 7) {
+		while (opcio != 12) {
 			switch (opcio) {
 			case 1:
 				opcio1(muniCat);
@@ -94,7 +92,8 @@ public class UsaLlistaDadesUrb {
 				opcio11(muniCat);
 				break;
 			}
-		
+			mostraMenu();
+			opcio = Integer.parseInt(teclat.nextLine());
 
 		}
 	}	
@@ -174,10 +173,10 @@ public class UsaLlistaDadesUrb {
 		System.out.println("\n\n\t Indica el nom de la població:");
 		nom = teclat.nextLine();
 		System.out.print("\n\n\tEls valors del municipi son:\t");
-		System.out.println(municipis.getDadesUrb(nom));//TODO Hem de canviar el metode que ho faci pel nom
+		System.out.println(municipis);//TODO Hem de canviar el metode que ho faci pel nom
 
 		municipis.eliminarMunicipi(nom);
-		System.out.println(municipis.getDadesUrb(nom));
+		System.out.println(municipis);
 	}
 
 	public static void opcio3(LlistaDadesUrb municipis) {
@@ -197,7 +196,7 @@ public class UsaLlistaDadesUrb {
 		String nom;
 		System.out.println("\n\n\t Indica el nom de la població:");
 		nom = teclat.nextLine();
-		System.out.print("\n\n\tL'increment o decrement de superfície de sòl urbanitzable de"+nom+"és:\t");
+		System.out.print("\n\n\tL'increment o decrement de superfície de sòl urbanitzable de/d "+nom+" és:\t");
 		System.out.println(municipis.modSuperficie(nom));
 	}
 	

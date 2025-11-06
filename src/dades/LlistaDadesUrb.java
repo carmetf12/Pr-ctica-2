@@ -22,7 +22,7 @@ package dades; // serveix per organitzar el codi en carpetes
     private DadesUrb[] poblacions;
     private int numPoblacions;
 
-    /**
+    /**-
      * Constructor
      * Inicialitza la taula de mesures al segons els mum de linies (poblacions que vulgui afegir)
      * @param capacitat num linies / poblacions a afegir de fitxer
@@ -79,16 +79,18 @@ package dades; // serveix per organitzar el codi en carpetes
      * Mètode toString
      * @return cadena amb el contingut de la instància
      */
-    public String toSting() {
-        String aux = "\n\nLlistaDadesUrb amb " +numPoblacions+ " poblacions:\n";
+public String toString() {
+    String aux = "\nLlistaDadesUrb amb " + numPoblacions + " poblacions:\n";
 
-        if (numPoblacions > 0) {
-            for (int i = 0; i < numPoblacions; i++) {
-                aux = aux + "\n\t" + poblacions[i].toString();  ////////////// està bé? cridarà al toString de DadesUrb?
-            }
+    if (numPoblacions > 0) {
+        for (int i = 0; i < numPoblacions; i++) {
+            aux += "\n----------------------" +
+                   poblacions[i].toString(); // crida correctament al toString() de DadesUrb
         }
-        return aux;
     }
+
+    return aux;
+}
 
         /**
      *  Afegir les dades d'una nova instància de DadesUrb al final de la llista.
@@ -174,6 +176,7 @@ package dades; // serveix per organitzar el codi en carpetes
     public double modSuperficie(String nom) {
         int posIni = -1;
         int posFi = -1;
+        Double error = null;
         double increment;
         
         //buscar les posicions del primer i últim any del mateix municipi
@@ -191,7 +194,7 @@ package dades; // serveix per organitzar el codi en carpetes
             }
         }
         if (posIni == -1) {
-            return(-1);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
+            return(error);       //TODO: ficar codi d'error o fer algo en cas de que aquell municipi no es trobi a la llista
         }                       // s'ha de suposar que sempre el trobarem?
                                 //TODO Et serveix com a codi d'error? null no es pot retornar pq és un double
         else {
@@ -350,14 +353,17 @@ package dades; // serveix per organitzar el codi en carpetes
         for(int i = 0; i<numPoblacions; i++) {
             if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){ //es comprova posicio
                 for(int j = i; j<numPoblacions; j++) {
+                    numPoblacions--;
+                    if (j + 1 < poblacions.length) {
                         poblacions[j] = poblacions[j+1];
-                        numPoblacions--;
+                    }
                 }
-                if(nom.equalsIgnoreCase(poblacions[i+1].getNomMunicipi())){ //es comprova posicio seguent
+                if (i + 1 < poblacions.length){
+                    if(nom.equalsIgnoreCase(poblacions[i+1].getNomMunicipi())){ //es comprova posicio seguent
                     //si la posició següent també es del municipi
-                    i--; //es decrementa i, per a que a la propera iteració quan incrementi i avalui la casella que ha estat col·locada on estava la eliminada
-                } // VAYA FACTO
-
+                        i--; //es decrementa i, per a que a la propera iteració quan incrementi i avalui la casella que ha estat col·locada on estava la eliminada
+                    } // VAYA FACTO
+                }
 
             }
         }

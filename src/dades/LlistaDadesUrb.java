@@ -42,7 +42,7 @@ package dades; // serveix per organitzar el codi en carpetes
 
     /**
      * Getter: retorna les dades d'una certa posició de la llista
-     * @pos numero de la posició la qual es vol consultar les dades
+     * @nomMun nom del municipi el qual es vol consultar les dades
      * @return
      */
     public DadesUrb getDadesUrb(String nomMun) {
@@ -282,16 +282,12 @@ public String toString() {
      * @return LlistaDadesUrb amb municipis del nom de param
      */
     public LlistaDadesUrb dadesMunicipi (String nom) {
-        final int capacitat = 16; //pq es el 
-        int j = 0;
-
         LlistaDadesUrb subllista = new LlistaDadesUrb(numPoblacions); //nova llista
+
         // trobar posicio del municipi a la taula
         for(int i = 0; i<numPoblacions; i++) {
             if(nom.equalsIgnoreCase(poblacions[i].getNomMunicipi())){
                 subllista.afegirDades(poblacions[i]);
-  
-                j++;
             }
         }
         return(subllista);
@@ -367,5 +363,34 @@ public String toString() {
 
             }
         }
+    }
+
+
+    /**
+     * Crea una taula amb els anys dels municipis d'una llista
+     * 
+     * @return anys la taula amb els anys
+     */
+    public int[] AnysLlista(){
+        int[] anys = new int[numPoblacions];
+
+        for (int i =0; i<numPoblacions; i++){
+            anys[i] = poblacions[i].getAnyDades();
+        }
+        return (anys);
+    }
+
+    /**
+     * Crea una taula amb les diferents poblacions dels municipis d'una llista
+     * 
+     * @return poblacio la taula amb les poblacions
+     */
+    public int[] poblacioLlista(){
+        int[] poblacio = new int[numPoblacions];
+
+        for (int i =0; i<numPoblacions; i++){
+            poblacio[i] = poblacions[i].getHabitants();
+        }
+        return (poblacio);
     }
 }

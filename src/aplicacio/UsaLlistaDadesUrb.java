@@ -132,17 +132,17 @@ public class UsaLlistaDadesUrb {
 	//Interactuar amb la taula
 	//MENU
 	//Mostrar el conjunt de dades de la llista. 
-//Eliminar el conjunt de dades d’un municipi. El nom del municipi es llegirà de teclat. Per comprovar el bon funcionament de l’operació hem de fer: o primer mostrarem les dades d’aquest municipi, o cridarem a l’operació eliminar i o després tornarem a mostrar les dades del mateix municipi per comprovar que ja no n’hi ha cap. 
-//Mostrar la informació del municipi que té la superfície total més gran de Catalunya. 
-//Mostrar la informació del municipi que té el percentatge de superfície destinat a zones verdes més alt de Catalunya. 
-//Mostrar l’increment o decrement de la superfície de sòl urbanitzable al llarg dels anys d’un municipi. El nom del municipi es llegirà de teclat. 
-//Mostrar les dades del primer municipi de costa que no disposa de sòl urbanitzable. 
-//Mostrar el nom dels municipis que tenen una densitat de població superior a un valor. El valor es llegirà de teclat. 
-//Mostrar el nom dels municipis de muntanya que tenen una densitat de població superior a un valor. El valor es llegirà de teclat. 
-//Mostrar la informació del municipi de costa que té el percentatge de superfície destinat a zones verdes més alt de Catalunya.
-//Mostrar la informació del municipi que no és ni de costa ni de muntanya que té la superfície total més gran de Catalunya. 
-//Mostrar l’evolució de la població anual d’un municipi en els diferents anys on tenim dades. El nom del municipi es llegirà de teclat. 
-//Sortir del programa. 
+	//Eliminar el conjunt de dades d’un municipi. El nom del municipi es llegirà de teclat. Per comprovar el bon funcionament de l’operació hem de fer: o primer mostrarem les dades d’aquest municipi, o cridarem a l’operació eliminar i o després tornarem a mostrar les dades del mateix municipi per comprovar que ja no n’hi ha cap. 
+	//Mostrar la informació del municipi que té la superfície total més gran de Catalunya. 
+	//Mostrar la informació del municipi que té el percentatge de superfície destinat a zones verdes més alt de Catalunya. 
+	//Mostrar l’increment o decrement de la superfície de sòl urbanitzable al llarg dels anys d’un municipi. El nom del municipi es llegirà de teclat. 
+	//Mostrar les dades del primer municipi de costa que no disposa de sòl urbanitzable. 
+	//Mostrar el nom dels municipis que tenen una densitat de població superior a un valor. El valor es llegirà de teclat. 
+	//Mostrar el nom dels municipis de muntanya que tenen una densitat de població superior a un valor. El valor es llegirà de teclat. 
+	//Mostrar la informació del municipi de costa que té el percentatge de superfície destinat a zones verdes més alt de Catalunya.
+	//Mostrar la informació del municipi que no és ni de costa ni de muntanya que té la superfície total més gran de Catalunya. 
+	//Mostrar l’evolució de la població anual d’un municipi en els diferents anys on tenim dades. El nom del municipi es llegirà de teclat. 
+	//Sortir del programa. 
 
 	private static void mostraMenu(){
 		System.out.println("\n\nOpcions del menu:");
@@ -164,7 +164,7 @@ public class UsaLlistaDadesUrb {
 		public static void opcio1(LlistaDadesUrb municipis) {
 	//Mostrar el conjunt de dades de la llista. 
 		System.out.print("\n\n\tEls valors de la llista son:\t");
-		System.out.println(municipis);
+		System.out.println("\t\t"+municipis);
 	}
 
 	public static void opcio2(LlistaDadesUrb municipis) {
@@ -173,22 +173,22 @@ public class UsaLlistaDadesUrb {
 		System.out.println("\n\n\t Indica el nom de la població:");
 		nom = teclat.nextLine();
 		System.out.print("\n\n\tEls valors del municipi son:\t");
-		System.out.println(municipis);//TODO Hem de canviar el metode que ho faci pel nom
+		System.out.println("\t\t"+municipis);//TODO Hem de canviar el metode que ho faci pel nom
 
 		municipis.eliminarMunicipi(nom);
-		System.out.println(municipis);
+		System.out.println("\t\t"+municipis);
 	}
 
 	public static void opcio3(LlistaDadesUrb municipis) {
 //Mostrar la informació del municipi que té la superfície total més gran de Catalunya. 
 		System.out.print("\n\n\tEl municipi més gran de Catalunya és:\t");
-		System.out.println(municipis.municipiMajorSuperficie());
+		System.out.println("\t\t"+municipis.municipiMajorSuperficie());
 	}
 	
 	public static void opcio4(LlistaDadesUrb municipis) {
 //Mostrar la informació del municipi que té el percentatge de superfície destinat a zones verdes més alt de Catalunya. 
 		System.out.print("\n\n\tEl municipi amb més percentatge de superfície zona verda és:\t");
-		System.out.println(municipis.municipiMajorPercentZonesVerdes());
+		System.out.println("\t\t"+municipis.municipiMajorPercentZonesVerdes());
 	}
 
 		public static void opcio5(LlistaDadesUrb municipis) {
@@ -197,50 +197,71 @@ public class UsaLlistaDadesUrb {
 		System.out.println("\n\n\t Indica el nom de la població:");
 		nom = teclat.nextLine();
 		System.out.print("\n\n\tL'increment o decrement de superfície de sòl urbanitzable de/d "+nom+" és:\t");
-		System.out.println(municipis.modSuperficie(nom));
+		System.out.println("\t\t"+municipis.modSuperficie(nom));
 	}
 	
 	public static void opcio6(LlistaDadesUrb municipis) {
 //Mostrar les dades del primer municipi de costa que no disposa de sòl urbanitzable. 
 		System.out.print("\n\n\tEl primer municipi de costa sense sòl urbanitzable és:\t");
-		System.out.println(municipis.costaSenseSolUrbanitzable());
+		System.out.println("\t\t"+municipis.costaSenseSolUrbanitzable());
 	}
 
 	public static void opcio7(LlistaDadesUrb municipis) {
 //Mostrar el nom dels municipis que tenen una densitat de població superior a un valor.
 		double dpoblacio;
+		String[] densSup;
+		String aux;
 		System.out.println("\n\n\t Indica la densitat de la població a comparar:");
 		dpoblacio = Double.parseDouble(teclat.nextLine());
-		System.out.print("\n\n\tEls noms dels municipis amb densitat de població superior a"+dpoblacio+ "són:\t");
-		System.out.println(municipis.densitatPoblacions(dpoblacio));
+		aux = "\n\n\tEls noms dels municipis amb densitat de població superior a "+dpoblacio+ " són:\n ";
+		densSup = municipis.densitatPoblacions(dpoblacio);
+		
+		aux = aux + "\t\t";
+
+		for (int i = 0; i<densSup.length; i++){
+			aux = aux + "\t["+ densSup[i]+ "]";
+		}
+		System.out.println(aux);
 	}
 
 	public static void opcio8(LlistaDadesUrb municipis) {
 //Mostrar el nom dels municipis de muntanya que tenen una densitat de població superior a un valor.
 		double dpoblacio;
+		String aux;
+		String [] densSup;
+
 		System.out.println("\n\n\t Indica la densitat de la població de muntanya a comparar:");
 		dpoblacio = Double.parseDouble(teclat.nextLine());	
-		LlistaDadesUrb muntanya = new LlistaDadesUrb(1000000000);
+
+		LlistaDadesUrb muntanya = new LlistaDadesUrb(municipis.numElemLlista());
 		muntanya = municipis.dadesMunicipiCaract(1);
-		System.out.print("\n\n\tEls noms dels municipis de muntanya amb densitat de població superior a"+dpoblacio+ "són:\t");
-		System.out.println(muntanya.densitatPoblacions(dpoblacio));
+
+		aux = "\n\n\tEls noms dels municipis de muntanya amb densitat de població superior a"+dpoblacio+ "són:\t \n";
+		densSup = muntanya.densitatPoblacions(dpoblacio);
+		aux = aux + "\t\t";
+		for (int i = 0; i<densSup.length; i++){
+			aux = aux + "\t["+ densSup[i]+ "]";
+		}
+		
+		System.out.println(aux);
 	}
+		
 
 
 	public static void opcio9(LlistaDadesUrb municipis) {
 //Mostrar la informació del municipi de costa que té el percentatge de superfície destinat a zones verdes més alt de Catalunya.
-		LlistaDadesUrb costa = new LlistaDadesUrb(1000000000);
+		LlistaDadesUrb costa = new LlistaDadesUrb(municipis.numElemLlista());
 		costa = municipis.dadesMunicipiCaract(0);
 		System.out.print("\n\n\tEl municipi de costa amb més percentatge de superfície zona verda és:\t");
-		System.out.println(costa.municipiMajorPercentZonesVerdes());
+		System.out.println("\t\t"+costa.municipiMajorPercentZonesVerdes());
 	}
 
 	public static void opcio10(LlistaDadesUrb municipis) {
 //Mostrar la informació del municipi que no és ni de costa ni de muntanya que té la superfície total més gran de Catalunya. 
-		LlistaDadesUrb normal = new LlistaDadesUrb(1000000000);
+		LlistaDadesUrb normal = new LlistaDadesUrb(municipis.numElemLlista());
 		normal = municipis.dadesMunicipiCaract(2);
 		System.out.print("\n\n\tEl municipi ni de costa ni de muntanya més gran de Catalunya és:\t");
-		System.out.println(normal.municipiMajorSuperficie());
+		System.out.println("\t\t"+normal.municipiMajorSuperficie());
 	}
 
 	public static void opcio11(LlistaDadesUrb municipis) {
@@ -248,15 +269,26 @@ public class UsaLlistaDadesUrb {
 		String nom;
 		System.out.println("\n\n\t Indica el nom de la població:");
 		nom = teclat.nextLine();
-		LlistaDadesUrb municipiNom = new LlistaDadesUrb(1000000000);
-		municipiNom = municipis.dadesMunicipi(nom);
+		int[] anys = new int[municipis.numElemLlista()];
+		int[] poblacio = new int[municipis.numElemLlista()];
+		
+
+	
+		LlistaDadesUrb municipiNom = new LlistaDadesUrb(municipis.numElemLlista());
+		municipiNom = municipis.dadesMunicipi(nom);//Llista amb el mateix municipi diferents anys
+
+		anys = municipiNom.AnysLlista();
+		poblacio = municipiNom.poblacioLlista();
+		//System.out.println(municipiNom);//Comprova que la llista està bé
+
 		System.out.println("\n\n\t La població del municipi "+nom+ " durant els anys ha estat:");
-		for (int i = 0; i < municipiNom.numElemLlista(); i++){//TODO mirar com col·locar bé el length estic molt cansada i ja no em funcionen les neurones
-			System.out.println("\n"+municipiNom.getDadesUrb(nom).getAnyDades()+":\t "+municipiNom.getDadesUrb(nom).getHabitants());
+
+
+		for (int i = 0; i < municipiNom.numElemLlista(); i++){
+			System.out.println("\n\t\t"+anys[i]+":\t "+poblacio[i]);
 
 		}
 
 	}
-	//TODO he passat els valors per paràmetre però haig d'utilitzar la següent funció pq me'ls passin per teclat:	paraula = teclat.nextLine();
 	
 }
